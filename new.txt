@@ -1,4 +1,4 @@
-消息通知
+1 消息通知
 1)表记录变更
 asset install.sql
 INSERT INTO `{{notify_node}}`(`node`, `nodeinfo`, `module`, `titlekey`, `contentkey`, `sendemail`, `sendmessage`, `sendsms`, `type`) VALUES ('assets_inventory_message','资产盘点提醒','assets','assets/default/Inventory  Reminder title','assets/default/Inventory Reminder content','1','1','1','2');
@@ -15,5 +15,21 @@ $config = array(
 );
 Notify::model()->sendNotify($lastUID, "workflow_goback_notice", $config);
 
+2 根据$screen['department_id']查找市级设备管理员、部门设备管理员。以及设备使用人 发送通知
+参考workflow/controller/HandleController
+function makeUserSelect
 
+$users_select = User::model()->fetchAllFitDeptAndRoleUser($departs,$role_id);
 
+3 添加部门盘点确认记录，包括电子和非电子（表asset_inventory_confirm）
+部门id 通过level=3选择三级部门
+
+4 页面增加，每个盘点记录中展示各部门盘点情况，盘点率如何计算，增加筛选条件
+
+盘点率如何计算：asset/actions/inventory/data.php  progress
+
+5 各角色查看数据控制
+  省级设备管理员可以查看所有设备
+  地市级可以查看该分公司下所有部门的完成情况
+  部门设备管理员区分电子和综合，查看相应设备的完成情况
+  
