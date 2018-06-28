@@ -1,0 +1,8 @@
+消息通知
+1)表记录变更
+asset install.sql
+INSERT INTO `{{notify_node}}`(`node`, `nodeinfo`, `module`, `titlekey`, `contentkey`, `sendemail`, `sendmessage`, `sendsms`, `type`) VALUES ('assets_inventory_message','资产盘点催办提醒','assets','assets/default/Push title','assets/default/Push content','1','1','1','2');
+
+
+    'Push title' => '{sender} 给您发送了资产处理申请审核催办提醒：{subject}',
+    'Push content' => '{sender} 给您发送了资产处理申请审核催办提醒：{subject}'
