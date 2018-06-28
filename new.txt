@@ -1,8 +1,19 @@
 消息通知
 1)表记录变更
 asset install.sql
-INSERT INTO `{{notify_node}}`(`node`, `nodeinfo`, `module`, `titlekey`, `contentkey`, `sendemail`, `sendmessage`, `sendsms`, `type`) VALUES ('assets_inventory_message','资产盘点催办提醒','assets','assets/default/Push title','assets/default/Push content','1','1','1','2');
+INSERT INTO `{{notify_node}}`(`node`, `nodeinfo`, `module`, `titlekey`, `contentkey`, `sendemail`, `sendmessage`, `sendsms`, `type`) VALUES ('assets_inventory_message','资产盘点提醒','assets','assets/default/Inventory  Reminder title','assets/default/Inventory Reminder content','1','1','1','2');
+
+asset/language/defalut.php
+'Inventory  Reminder title' => '{sender} 给您发送了资产盘点工作提醒：{subject}',
+'Inventory Reminder content' => '{sender} 给您发送了资产盘点工作提醒：{subject}'
+
+2)调用函数
+
+$config = array(
+	'{url}' => $url,
+	'{msg}' => '工作 '.$runName.' 被回退，回退原因：'.$msg
+);
+Notify::model()->sendNotify($lastUID, "workflow_goback_notice", $config);
 
 
-    'Push title' => '{sender} 给您发送了资产处理申请审核催办提醒：{subject}',
-    'Push content' => '{sender} 给您发送了资产处理申请审核催办提醒：{subject}'
+
